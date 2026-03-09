@@ -7,6 +7,10 @@ const domainsRoutes = require('./routes/domains.routes');
 const usersRoutes = require('./routes/users.routes');
 const peersRoutes = require('./routes/peers.routes');
 const dialRoutesRoutes = require('./routes/dial-routes.routes');
+const syncRoutes = require('./routes/sync.routes');
+const routrDomainsRoutes = require('./routes/routr-domains.routes');
+const routrCredentialsRoutes = require('./routes/routr-credentials.routes');
+const routrAgentsRoutes = require('./routes/routr-agents.routes');
 
 const app = express();
 
@@ -35,8 +39,12 @@ app.use('/domains', domainsRoutes);
 app.use('/sip-users', usersRoutes);
 app.use('/peers', peersRoutes);
 app.use('/dial-routes', dialRoutesRoutes);
+app.use('/sync', syncRoutes);
+app.use('/routr/domains', routrDomainsRoutes);
+app.use('/routr/credentials', routrCredentialsRoutes);
+app.use('/routr/agents', routrAgentsRoutes);
 
 const port = Number(process.env.PORT || 3010);
 app.listen(port, '0.0.0.0', () => {
   console.log('grs-routr-backend listening on ' + port);
-});  
+});

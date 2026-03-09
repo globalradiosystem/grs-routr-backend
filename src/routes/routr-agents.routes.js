@@ -6,8 +6,9 @@ const router = express.Router();
 router.get('/', async (_req, res) => {
   try {
     const result = await pool.query(
-      `SELECT id, tenant_id, name, contact_addr, transport, username, is_active, created_at
-       FROM peers
+      `SELECT id, ref, name, username, domain_ref, credentials_ref,
+              privacy, enabled, created_at
+       FROM routr_agents
        ORDER BY id`
     );
     res.json(result.rows);
@@ -19,28 +20,28 @@ router.get('/', async (_req, res) => {
 router.post('/', async (req, res) => {
   try {
     const {
-      tenant_id = null,
+      ref,
       name,
-      contact_addr,
-      transport = 'udp',
-      username = null,
-      secret = null,
-      is_active = true,
+      username,
+      domain_ref,
+      credentials_ref,
+      privacy = 'None',
+      enabled = true,
     } = req.body;
 
-    if (!name || !contact_addr) {
+    if (!ref || !name || !username || !domain_ref || !credentials_ref) {
       return res.status(400).json({
         ok: false,
-        error: 'name y contact_addr son obligatorios',
+        error: 'ref, name, username, domain_ref y credentials_ref son obligatorios',
       });
     }
 
     const result = await pool.query(
-      `INSERT INTO peers
-       (tenant_id, name, contact_addr, transport, username, secret, is_active)
+      `INSERT INTO routr_agents
+       (ref, name, username, domain_ref, credentials_ref, privacy, enabled)
        VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id, tenant_id, name, contact_addr, transport, username, is_active, created_at`,
-      [tenant_id, name, contact_addr, transport, username, secret, is_active]
+       RETURNING id, ref, name, username, domain_ref, credentials_ref, privacy, enabled, created_at`,
+      [ref, name, username, domain_ref, credentials_ref, privacy, enabled]
     );
 
     res.status(201).json({ ok: true, data: result.rows[0] });
