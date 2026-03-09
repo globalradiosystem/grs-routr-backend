@@ -11,6 +11,9 @@ const syncRoutes = require('./routes/sync.routes');
 const routrDomainsRoutes = require('./routes/routr-domains.routes');
 const routrCredentialsRoutes = require('./routes/routr-credentials.routes');
 const routrAgentsRoutes = require('./routes/routr-agents.routes');
+const routrTrunksRoutes = require('./routes/routr-trunks.routes');
+const routrNumbersRoutes = require('./routes/routr-numbers.routes');
+const routrEgressPoliciesRoutes = require('./routes/routr-egress-policies.routes');
 
 const app = express();
 
@@ -43,6 +46,9 @@ app.use('/sync', syncRoutes);
 app.use('/routr/domains', routrDomainsRoutes);
 app.use('/routr/credentials', routrCredentialsRoutes);
 app.use('/routr/agents', routrAgentsRoutes);
+app.use('/routr/trunks', routrTrunksRoutes);
+app.use('/routr/numbers', routrNumbersRoutes);
+app.use('/routr/egress-policies', routrEgressPoliciesRoutes);
 
 const port = Number(process.env.PORT || 3010);
 app.listen(port, '0.0.0.0', () => {
