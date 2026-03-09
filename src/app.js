@@ -5,6 +5,8 @@ const pool = require('./db');
 const tenantsRoutes = require('./routes/tenants.routes');
 const domainsRoutes = require('./routes/domains.routes');
 const usersRoutes = require('./routes/users.routes');
+const peersRoutes = require('./routes/peers.routes');
+const dialRoutesRoutes = require('./routes/dial-routes.routes');
 
 const app = express();
 
@@ -31,8 +33,10 @@ app.get('/health', async (_req, res) => {
 app.use('/tenants', tenantsRoutes);
 app.use('/domains', domainsRoutes);
 app.use('/sip-users', usersRoutes);
+app.use('/peers', peersRoutes);
+app.use('/dial-routes', dialRoutesRoutes);
 
 const port = Number(process.env.PORT || 3010);
 app.listen(port, '0.0.0.0', () => {
   console.log('grs-routr-backend listening on ' + port);
-});
+});  
