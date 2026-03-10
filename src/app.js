@@ -14,6 +14,8 @@ const routrAgentsRoutes = require('./routes/routr-agents.routes');
 const routrTrunksRoutes = require('./routes/routr-trunks.routes');
 const routrNumbersRoutes = require('./routes/routr-numbers.routes');
 const routrEgressPoliciesRoutes = require('./routes/routr-egress-policies.routes');
+const routrSyncModernRoutes = require('./routes/routr-sync-modern.routes');
+const routrPgdataRoutes = require('./routes/routr-pgdata.routes');
 
 const app = express();
 
@@ -49,6 +51,8 @@ app.use('/routr/agents', routrAgentsRoutes);
 app.use('/routr/trunks', routrTrunksRoutes);
 app.use('/routr/numbers', routrNumbersRoutes);
 app.use('/routr/egress-policies', routrEgressPoliciesRoutes);
+app.use('/routr/sync', routrSyncModernRoutes);
+app.use('/routr/pgdata', routrPgdataRoutes);
 
 const port = Number(process.env.PORT || 3010);
 app.listen(port, '0.0.0.0', () => {
